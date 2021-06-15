@@ -9,28 +9,33 @@ class InputPhoneBook extends Component{
     inputId = uuidv4();
     state = {
         contacts: [],
-        name: ''
+        name: '',
+        number: '',
     };
     handleInputChange = evt => {
-        console.log(evt.target.value);
-        this.setState({name: evt.target.value})  
+        console.log(evt.currentTarget.value);
+       const { name, value } = evt.currentTarget;
+       this.setState({[name]: value});
+
     };
     handleSubmit = evt => {
         evt.preventDefault();
-        this.addContact(this.state.name);
-        this.setState({ name: "" });
+        this.addContact(this.state.name, this.state.number);
+        this.setState({ name: "", number: ""});
     };
-    addContact = text => {
-        console.log(text);
-        this.setState(prevState => ({ contacts: [text, ...prevState.contacts] }));
+    addContact = (name, number) => {
+        // console.log(text);
+        let nameFromInput = {name: name, number: number}
+        this.setState(prevState => ({ contacts: [nameFromInput, ...prevState.contacts],
+         }));
     };
     render() {
         return (
             <div className="Container">
                 <h2>Phonebook</h2>
-                <div className="Container-form">
-                    <form onSubmit={this.handleSubmit}>
-                        <label htmlFor={this.inputId}>
+                <div className={styles.container}>
+                    <form onSubmit={this.handleSubmit} className={styles.form}>
+                        <label  htmlFor={this.inputId}>
                          
                             Name:
                            
@@ -44,7 +49,20 @@ class InputPhoneBook extends Component{
                                 value={this.state.name}
                                 onChange={this.handleInputChange}
                                 id={this.inputId}
-                    />
+                            />
+                        </label>
+                        <label>
+                            Number:
+                            <input
+                                type="tel"
+                                name="number"
+                                pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
+                                title="Номер телефона должен состоять цифр и может содержать пробелы, тире, круглые скобки и может начинаться с +"
+                                value = {this.state.number}
+                                onChange = {this.handleInputChange}
+                                id={this.inputId}
+                                required
+                            />
                         </label>
                         
                       <button type="submit" className="Container-form__btn">Add Contact</button>  

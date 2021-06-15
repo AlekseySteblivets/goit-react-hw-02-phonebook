@@ -1,4 +1,9 @@
-.form {
+.container {
     display: table-caption;
     border: 1px;
 }
+
+/* .form {
+display: flex;
+  
+} */
