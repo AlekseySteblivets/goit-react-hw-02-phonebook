@@ -19,23 +19,18 @@ class ContactForm extends Component{
     };
     handleSubmit = evt => {
         evt.preventDefault();
+        // if(this.state.name)
         this.props.addContact(this.state.name, this.state.number);
         this.setState({ name: "", number: ""});
     };
-    // addContact = (name, number) => {
-    //     // console.log(text);
-    //     let nameFromInput = {name: name, number: number}
-    //     this.setState(prevState => ({ contacts: [nameFromInput, ...prevState.contacts],
-    //      }));
-    // };
 
     render() {
-        // const visibleContacts = this.getVisibleContacts();
+
         return (
          
                 <div className={styles.container}>
                     <form onSubmit={this.handleSubmit} className={styles.form}>
-                        <label  htmlFor={this.inputId}>
+                        <label  htmlFor={this.inputId} className={styles.label}>
                          
                             Name:
                            
@@ -51,7 +46,7 @@ class ContactForm extends Component{
                                 id={this.inputId}
                             />
                         </label>
-                        <label>
+                        <label className={styles.label}>
                             Number:
                             <input
                                 type="tel"

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 // import InputPhoneBook from './components/InputPhoneBook';
 import ContactForm from './components/ContactForm';
-// import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuidv4 } from 'uuid';
 import Filter from './components/Filter';
 import ContactList from './components/ContactList';
 
@@ -27,11 +27,29 @@ class App extends Component {
   };
 
       addContact = (name, number) => {
-        // console.log(text);
-        let nameFromInput = {name: name, number: number}
-        this.setState(prevState => ({ contacts: [nameFromInput, ...prevState.contacts],
-         }));
-    };
+
+       const idContact = uuidv4();
+        const nameFromInput = {name: name, number: number, id: idContact}
+        this.state.contacts.map(contact => {
+          if(contact.name === name && contact.number === number ) {
+            alert(`${name} is already in contacts!`) 
+            return
+          }
+          });
+      
+          this.setState(prevState => ({ contacts: [nameFromInput, ...prevState.contacts],
+    }));
+  };
+  
+
+    deleteContact = (idFromContact) => {
+      this.setState(prevState => ({
+        contacts: prevState.contacts.filter (contact => 
+        contact.id !== idFromContact),
+}))
+
+
+    }
 
   render() {
     const visibleContacts = this.getVisibleContacts();
@@ -42,37 +60,11 @@ class App extends Component {
 
       <h2>Contacts</h2>
       <Filter value = {this.state.filter} оnChange = {this.changeFilter} />
-      <ContactList contacts={visibleContacts} />
+      <ContactList contacts={visibleContacts} onDeleteContact={this.deleteContact}/>
     </div> 
     )
   }
 
 }
-
-
-//   handleNameInput = event => {
-//     this.setState({name: event.currentTarget.value});
-//     console.log(event.currentTarget.value);
-// };
-
-//   handleSubmit = text => {
-//     const addOneName = {
-//       id: uuidv4(),
-//       text: text,
-//     } 
-//     this.setState(prevState => ({
-//       contacts: [addOneName, ...prevState.contacts]
-//     }))
-//   } 
-// const App = () =>{
-//     return (
-//       <div className="App">
-//         <InputPhoneBook/>
-//         {/* name = {this.state.name}  onChange = {this.handleNameInput} */}
-//       </div>
-//     );
-//   }
-
-
 
 export default App;
