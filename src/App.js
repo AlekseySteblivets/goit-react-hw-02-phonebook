@@ -26,34 +26,31 @@ class App extends Component {
       );
   };
 
-      addContact = (name, number) => {
-
-       const idContact = uuidv4();
-        const nameFromInput = {name: name, number: number, id: idContact}
-        this.state.contacts.map(contact => {
-          if(contact.name === name && contact.number === number ) {
-            alert(`${name} is already in contacts!`) 
-            return
-          }
-          });
-      
+  addContact = (name, number) => {
+    const idContact = uuidv4();
+      const nameFromInput = {name: name, number: number, id: idContact};
+      const findContact = this.state.contacts.find(contact => contact.name === name && contact.number === number);
+     
+  
+       if(findContact) {
+        alert(`${name} is already in contacts!`);
+        return;
+      }
+ 
           this.setState(prevState => ({ contacts: [nameFromInput, ...prevState.contacts],
     }));
   };
-  
 
     deleteContact = (idFromContact) => {
       this.setState(prevState => ({
         contacts: prevState.contacts.filter (contact => 
         contact.id !== idFromContact),
 }))
-
-
     }
 
   render() {
     const visibleContacts = this.getVisibleContacts();
-    return (
+      return (
           <div>
       <h1>Phonebook</h1>
       <ContactForm addContact = {this.addContact} />
@@ -68,3 +65,19 @@ class App extends Component {
 }
 
 export default App;
+
+
+
+
+    // var contactAlreadyAdded = false;
+      // for(var i = 0; i < this.state.contacts.length; i++) {
+      //   var contact = this.state.contacts[i];
+      //   if (contact.name === name && contact.number === number) {
+      //     contactAlreadyAdded = true;
+      //     break;
+      //   }
+      // }
+      // if(contactAlreadyAdded) {
+      //   alert(`${name} is already in contacts!`);
+      //   return;
+      // }

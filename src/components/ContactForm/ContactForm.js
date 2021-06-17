@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import styles from './ContactForm.module.css';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import { v4 as uuidv4 } from 'uuid';
 
 
@@ -23,9 +23,7 @@ class ContactForm extends Component{
         this.props.addContact(this.state.name, this.state.number);
         this.setState({ name: "", number: ""});
     };
-
     render() {
-
         return (
          
                 <div className={styles.container}>
@@ -55,7 +53,7 @@ class ContactForm extends Component{
                                 title="Номер телефона должен состоять цифр и может содержать пробелы, тире, круглые скобки и может начинаться с +"
                                 value = {this.state.number}
                                 onChange = {this.handleInputChange}
-                                id={this.inputId}
+                                // id={this.inputId}
                                 required
                             />
                         </label>

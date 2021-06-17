@@ -17,4 +17,16 @@ const ContactList = ({ contacts, onDeleteContact }) => {
             </div>
     )
 };
+
+ContactList.propTypes = {
+    contact: PropTypes.arrayOf(
+        PropTypes.shape({
+            name: PropTypes.string.isRequired,
+            number: PropTypes.string.isRequired,
+            id: PropTypes.string.isRequired,
+
+        })
+        ),
+};
+
 export default ContactList;
